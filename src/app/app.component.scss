@@ -1,0 +1,28 @@
+.box {
+    background: #BADA55;
+    border: 1px solid black;
+    padding: 10px 20px;
+    display: inline-block;
+  
+    &.dragging {
+      background: coral;
+    }
+  }
+
+  .area {
+    background: #C0FFEE;
+    padding: 40px;
+    height: 400px;
+    width: 300px;
+    display:flex;
+    align-items: center;
+  }
+  
+  .dropzone{
+    padding: 20px;
+    margin: 20px;
+    background: lightcoral;
+    min-height: 200px;
+    border:1px solid black;
+  }
+  
