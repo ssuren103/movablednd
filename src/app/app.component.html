@@ -1,49 +1,71 @@
-<div style="float: left;">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Design Type</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field>
-        <mat-select placeholder="Favorite food" (selectionChange)="typeChanged($event)">
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Type</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field>
-        <mat-select placeholder="Favorite food" *ngIf="doorboolean" [(value)]="selected" (selectionChange)="doorType($event)">
-          <mat-option *ngFor="let food of collectionData" [value]="food.value">
-            {{food.viewValue}}
-          </mat-option>
-        </mat-select>
-        <mat-select placeholder="Favorite food" *ngIf="!doorboolean" [(value)]="selected" (selectionChange)="windowType($event)">
-          <mat-option *ngFor="let food of collectionData" [value]="food.value">
-            {{food.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card>
-</div>
-<div>
-  <div class="area" appMovableArea>
-    <img [src]="imagepath" class="area" appMovableArea height="400px" width="300px">
-    <div class="box" appMovable *ngFor="let trapped of trappedBoxes">
-      {{ trapped }}
+<div class="page-design">
+  <div class="workarea">
+    <div class="area" appMovableArea>
+      <img [src]="imagepath" *ngIf="imagepath" appMovableArea>
+      <div class="box" appMovable *ngFor="let trapped of trappedBoxes">
+        <img [src]='trapped.name' (click)=boxDeselect(trapped)>
+      </div>
     </div>
   </div>
-</div>
-<div *ngFor="let box of availableBoxes" class="box" appDraggable (click)="boxSelect(box)">
-  {{ box }}
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <div class="box" appDraggable (click)="boxSelect(node.type)">
+        <img [src]='node.type' style="height:100;width:100%">
+      </div> 
+    </mat-tree-node>
+  
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'toggle ' + node.filename">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.filename}} : {{node.type}}
+    </mat-tree-node>
+  </mat-tree>
+
+  <div class="menu-card">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Design Type</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select placeholder="Favorite food" (selectionChange)="typeChanged($event)">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Type</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select placeholder="Favorite food" *ngIf="doorboolean" [(value)]="selected" (selectionChange)="doorType($event)">
+            <mat-option *ngFor="let food of collectionData" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-select placeholder="Favorite food" *ngIf="!doorboolean" [(value)]="selected" (selectionChange)="windowType($event)">
+            <mat-option *ngFor="let food of collectionData" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngFor="let box of availableBoxes" class="box" appDraggable (click)="boxSelect(box)">
+    {{ box }}
+  </div>
 </div>

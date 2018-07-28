@@ -1,28 +1,34 @@
-.box {
-    background: #BADA55;
-    border: 1px solid black;
-    padding: 10px 20px;
-    display: inline-block;
-  
-    &.dragging {
-      background: coral;
-    }
-  }
 
-  .area {
-    background: #C0FFEE;
-    padding: 40px;
-    height: 400px;
+.workarea{
+  background-color: #cdccce;
+  width:100%;
+  height: 662px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+.area{
+  width:250px;
+  height:auto;
+  
+  img{
     width: 300px;
-    display:flex;
-    align-items: center;
+    
   }
-  
-  .dropzone{
-    padding: 20px;
-    margin: 20px;
-    background: lightcoral;
-    min-height: 200px;
-    border:1px solid black;
-  }
-  
+}
+.box{
+  width:100px;
+  height:100px;
+  position: absolute;
+  background-color: #ccc;
+}
+.menu-card{
+  width: 340px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #fff;
+  border-radius: 0;
+  overflow: hidden;
+}
